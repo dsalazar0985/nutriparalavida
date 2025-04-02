@@ -1,0 +1,1402 @@
+:root {
+    --primary-color: #034701;
+    --secondary-color: #023601;
+    --accent-color: #81C784;
+    --text-color: #333333;
+    --light-bg: #f5f5f5;
+    --white: #FFFFFF;
+    --shadow-sm: 0 2px 5px rgba(0,0,0,0.1);
+    --shadow-md: 0 5px 15px rgba(0,0,0,0.1);
+    --transition: 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    font-display: swap;
+}
+
+/* Navbar Styles */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background-color: #fff;
+    padding: 1rem;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    width: auto;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li a {
+    color: #034701;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease;
+}
+
+/* Menú hamburguesa */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.menu-toggle span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: #034701;
+    transition: all 0.3s ease;
+}
+
+/* Animación del menú hamburguesa */
+.menu-toggle.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    padding-top: 150px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--white);
+    padding: 150px 1rem 0;
+    overflow: hidden;
+}
+
+/* Add new video background styles */
+.hero video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: -1;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero p {
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.cta-button {
+    background-color: #c0edc7;
+    color: #034701; /* Color de texto verde oscuro para mejor contraste */
+    padding: 15px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    transition: all 0.3s ease;
+    border: none;
+    margin-top: 20px;
+}
+
+.cta-button:hover {
+    background-color: #a3e4ac; /* Un tono ligeramente más oscuro para el hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.cta-button:active {
+    transform: translateY(0);
+}
+
+/* Secciones generales */
+section {
+    padding: 5rem 2rem;
+    scroll-margin-top: 80px;
+}
+
+section h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--secondary-color);
+}
+
+/* Sobre Mí */
+.profile-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.profile-container img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Servicios */
+.servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.servicio {
+    background-color: #c0edc7;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.servicio h3 {
+    color: #034701; /* Color verde oscuro para el título */
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.servicio p {
+    color: #034701; /* Color verde oscuro para el texto */
+    margin-bottom: 0;
+}
+
+.servicio:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    background-color: #b3e8bc; /* Un tono ligeramente más oscuro al hover */
+}
+
+/* testimonios */
+.testimonios-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px; /* Espacio para las flechas */
+}
+
+.testimonios-carousel {
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+.testimonio {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.testimonio img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.testimonio-contenido {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.testimonio h4 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.testimonio-texto {
+    font-style: italic;
+    color: #666;
+    line-height: 1.6;
+}
+
+.estrellas {
+    color: #ffd700;
+    margin-top: 10px;
+}
+
+/* Estilos para los controles del carrusel */
+.carousel-controls {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    pointer-events: none; /* Permite hacer clic a través del contenedor */
+}
+
+.prev-btn,
+.next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #c0edc7; /* Cambiado a color solicitado */
+    color: #034701; /* Color de texto verde oscuro para mejor contraste */
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+    z-index: 2;
+}
+
+.prev-btn {
+    left: 0;
+}
+
+.next-btn {
+    right: 0;
+}
+
+.prev-btn:hover,
+.next-btn:hover {
+    background: #a3e4ac; /* Un tono más oscuro al hover */
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    .testimonios-container {
+        padding: 0 40px;
+    }
+
+    .prev-btn,
+    .next-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+    }
+
+    .testimonio {
+        padding: 20px;
+    }
+
+    .servicio {
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .navbar {
+        height: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    .testimonios-container {
+        padding: 0 30px;
+    }
+
+    .prev-btn,
+    .next-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+    }
+}
+
+/* Formulario de contacto */
+.contacto-container {
+    max-width: 600px;
+    margin: 0 auto;
+    scroll-margin-top: 80px;
+}
+
+#formulario-reserva {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#formulario-reserva input,
+#formulario-reserva textarea {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#formulario-reserva button[type="submit"] {
+    background-color: #c0edc7;
+    color: #034701; /* Color de texto verde oscuro para mejor contraste */
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    width: auto;
+    transition: all 0.3s ease;
+}
+
+#formulario-reserva button[type="submit"]:hover {
+    background-color: #a3e4ac; /* Un tono más oscuro al hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+#formulario-reserva button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+/* Footer */
+footer {
+    background-color: #c0edc7;
+    padding: 30px 0;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.contacto-info {
+    margin-bottom: 20px;
+}
+
+.contacto-info h3,
+.redes-sociales h3 {
+    margin-bottom: 15px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.redes-sociales a {
+    font-size: 24px;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Mantener los colores de las redes sociales que ya definimos antes */
+
+/* Responsive Design */
+@media (max-width: 991px) {
+    .menu-toggle {
+        display: flex;
+    }
+    
+    .nav-links {
+        display: none;
+        position: fixed;
+        top: 70px; /* Altura del navbar */
+        left: 0;
+        right: 0;
+        background-color: white;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links li a {
+        display: block;
+        padding: 15px;
+        width: 100%;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .nav-links li a:hover {
+        background-color: #c0edc7;
+    }
+
+    /* Ajustes para secciones principales */
+    .hero-section {
+        padding-top: 80px;
+    }
+
+    .productos-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .producto-card {
+        margin: 0;
+    }
+
+    /* Ajustes para testimonios */
+    .testimonios-container {
+        padding: 0 1rem;
+    }
+
+    .testimonio {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    /* Ajustes para el formulario de contacto */
+    .contacto-container {
+        padding: 1rem;
+    }
+    
+    form {
+        width: 100%;
+    }
+
+    /* Ajuste para el ícono del carrito en móvil */
+    .cart-icon {
+        margin-right: 50px; /* Espacio para el menú hamburguesa */
+    }
+}
+
+/* Ajustes adicionales para móviles pequeños */
+@media (max-width: 576px) {
+    .logo img {
+        height: 40px;
+    }
+
+    .hero-section h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-section p {
+        font-size: 1rem;
+    }
+
+    .producto-card img {
+        max-width: 35%;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+}
+
+/* Ajuste para el scroll de las secciones */
+section {
+    scroll-margin-top: 80px;
+}
+
+/* O si prefieres aplicarlo a secciones específicas */
+#servicios,
+#testimonios,
+#contacto,
+#about {
+    scroll-margin-top: 80px;
+}
+
+/* Optimización de imágenes */
+img {
+    max-width: 100%;
+    height: auto;
+    font-display: swap;
+}
+
+/* Optimización de animaciones */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Optimización para dispositivos de alta resolución */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .hero {
+        background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('assets/nutricion_consciente@2x.jpg');
+    }
+}
+
+/* Loading lazy para imágenes */
+.profile-container img,
+.testimonio img {
+    loading: lazy;
+}
+
+/* Estilos para las tarjetas de productos */
+.producto-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    gap: 1rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.producto-card h3 {
+    width: 100%;
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.producto-card img {
+    width: 50%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 1rem auto;
+}
+
+.producto-card p {
+    width: 100%;
+    margin: 0.5rem 0;
+    color: var(--text-color);
+}
+
+.producto-card .precio {
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.producto-card .comprar-btn {
+    margin-top: 1rem;
+    padding: 0.8rem 2rem;
+    width: auto;
+}
+
+/* Ajustes para móviles */
+@media (max-width: 768px) {
+    .producto-card {
+        padding: 1.5rem;
+    }
+
+    .producto-card img {
+        width: 80%; /* Aumentado de 50% a 80% */
+        max-width: 80%; /* Asegurar que la imagen no exceda este tamaño */
+    }
+    
+    /* Ajuste específico para imágenes con atributo style inline */
+    .producto-card img[style*="max-width: 20%"] {
+        max-width: 80% !important; /* Aumentado de 40% a 80% */
+        width: 80% !important;
+    }
+    
+    .producto-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .producto-card p {
+        margin: 0.5rem 0;
+        font-size: 0.95rem;
+    }
+}
+
+/* Estilos mejorados para el carrusel de T-shirts */
+.carousel-producto {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin: 1rem 0;
+    padding: 1rem;
+}
+
+.carousel-inner {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    min-height: 400px; /* Altura aumentada para desktop */
+}
+
+.carousel-inner img {
+    display: none; /* Ocultar todas las imágenes por defecto */
+    width: 35%;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+.carousel-inner img.active {
+    display: block; /* Mostrar solo la imagen activa */
+}
+
+/* Botones de navegación del carrusel */
+.carousel-prev,
+.carousel-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(3, 71, 1, 0.7);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.carousel-prev {
+    left: 30%;
+}
+
+.carousel-next {
+    right: 30%;
+}
+
+.carousel-prev:hover,
+.carousel-next:hover {
+    background: rgba(3, 71, 1, 0.9);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    .carousel-inner {
+        min-height: 300px;
+    }
+
+    .carousel-inner img {
+        width: 70%;
+    }
+
+    .carousel-prev {
+        left: 10%;
+    }
+
+    .carousel-next {
+        right: 10%;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-inner {
+        min-height: 250px;
+    }
+
+    .carousel-inner img {
+        width: 90%;
+    }
+
+    .carousel-prev {
+        left: 5%;
+    }
+
+    .carousel-next {
+        right: 5%;
+    }
+}
+
+/* Estilos para el botón flotante de WhatsApp */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #25D366; /* Color oficial de WhatsApp */
+    color: #FFF;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.whatsapp-float:hover {
+    background-color: #128C7E; /* Color más oscuro al hover */
+    transform: scale(1.1);
+    color: #FFF;
+}
+
+/* Animación de pulso */
+.whatsapp-float::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #25D366;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: pulse 2s infinite;
+    z-index: -1;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+    70% {
+        transform: scale(1.3);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1.3);
+        opacity: 0;
+    }
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        font-size: 25px;
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+/* Mejoras en el scroll suave */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Ajustes para inputs en móviles */
+input, 
+textarea, 
+button {
+    font-size: 16px !important; /* Previene zoom en iOS */
+}
+
+/* Mejoras en la accesibilidad táctil */
+button, 
+.nav-links a, 
+.comprar-btn {
+    min-height: 44px; /* Área mínima táctil recomendada */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Mejoras en el espaciado responsivo */
+section {
+    padding: 3rem 1rem;
+}
+
+@media (max-width: 768px) {
+    section {
+        padding: 2rem 1rem;
+    }
+}
+
+/* Estilo para los botones de comprar */
+.comprar-btn {
+    background-color: #c0edc7;
+    color: #034701; /* Color de texto verde oscuro para mejor contraste */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.comprar-btn:hover {
+    background-color: #a3e4ac; /* Un tono ligeramente más oscuro para el hover */
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.comprar-btn:active {
+    transform: translateY(0);
+}
+
+/* Estilos para los créditos del desarrollador */
+.developer-credits {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-size: 0.9rem;
+    color: #000000; /* Texto en negro */
+}
+
+.developer-credits a {
+    color: #000000; /* Enlace en negro */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.developer-credits a:hover {
+    color: #034701; /* Color verde oscuro al hover */
+    text-decoration: underline; /* Subrayado al hover para mejor indicación de enlace */
+}
+
+/* Eliminar estos estilos si no se están usando en otra parte */
+.cantidad-selector,
+.cantidad-btn,
+.cantidad-input {
+    display: none;
+}
+
+/* Estilos para el carrito */
+.cart-icon {
+    position: relative;
+    cursor: pointer;
+    margin-left: 20px;
+    font-size: 1.5rem;
+    color: #034701;
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #c0edc7;
+    color: #034701;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Estilos del modal del carrito */
+.cart-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 350px;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    z-index: 1000;
+    overflow: hidden; /* Prevenir scroll del modal completo */
+}
+
+.cart-modal.active {
+    display: block !important; /* Forzar visualización cuando está activo */
+}
+
+.cart-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.close-cart {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #034701;
+    padding: 8px;
+    transition: all 0.3s ease;
+}
+
+.close-cart i {
+    font-size: 1.2rem;
+}
+
+.cart-items {
+    flex: 1;
+    overflow-y: auto; /* Permitir scroll solo en los items */
+    padding: 20px;
+    -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    transition: all 0.3s ease;
+}
+
+.cart-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.cart-item-details {
+    flex-grow: 1;
+}
+
+.cart-footer {
+    padding: 20px;
+    border-top: 1px solid #eee;
+    background: white;
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #c0edc7;
+    color: #034701;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.checkout-btn:hover {
+    background-color: #a3e4ac;
+}
+
+/* Agregar estos estilos al final del archivo */
+
+.remove-item {
+    background: none;
+    border: none;
+    color: #ff4444;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 8px;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.remove-item:hover {
+    color: #cc0000;
+    transform: scale(1.2);
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-item-details {
+    flex-grow: 1;
+    padding: 0 10px;
+}
+
+.cart-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* Estilos para los campos del formulario en el carrito */
+.customer-info {
+    margin-bottom: 15px;
+}
+
+.customer-info input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.customer-info input:focus {
+    border-color: #034701;
+    outline: none;
+    box-shadow: 0 0 3px rgba(3, 71, 1, 0.2);
+}
+
+.customer-info input::placeholder {
+    color: #999;
+}
+
+.error-message {
+    color: #ff4444;
+    font-size: 12px;
+    margin-top: -8px;
+    margin-bottom: 8px;
+    display: none;
+}
+
+.error-message.show {
+    display: block;
+}
+
+/* Ajustes responsivos para móviles */
+@media (max-width: 768px) {
+    .cart-modal {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .cart-modal.active {
+        display: block;
+    }
+
+    .cart-content {
+        height: 100vh;
+    }
+
+    .cart-items {
+        padding: 15px;
+    }
+
+    /* Mejorar la experiencia táctil */
+    .cart-item {
+        padding: 15px 0;
+    }
+
+    .remove-item {
+        padding: 15px;
+    }
+}
+
+/* Estilos para el scroll personalizado */
+.cart-items::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cart-items::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.cart-items::-webkit-scrollbar-thumb {
+    background: #c0edc7;
+    border-radius: 3px;
+}
+
+.cart-items::-webkit-scrollbar-thumb:hover {
+    background: #a3e4ac;
+}
+
+/* Agregar al final del archivo */
+@media (max-width: 768px) {
+    .cart-modal {
+        width: 100%;
+        height: 100vh;
+        right: -100%;
+        transition: right 0.3s ease;
+    }
+
+    .cart-modal.active {
+        right: 0;
+    }
+
+    .cart-content {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cart-items {
+        flex: 1;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .cart-footer {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+/* Mejorar la experiencia táctil */
+.remove-item {
+    padding: 15px;
+    margin: -15px;
+}
+
+.cart-item {
+    position: relative;
+    padding: 15px 0;
+}
+
+/* Agregar estos estilos al final del archivo */
+.empty-cart-message {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+}
+
+/* Mejorar la animación de eliminación */
+.cart-item.removing {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.checkout-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.checkout-button:hover {
+    background-color: #45a049;
+}
+
+/* Estilos para el botón de cerrar carrito */
+.close-cart {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #034701;
+    padding: 8px;
+    transition: all 0.3s ease;
+}
+
+.close-cart i {
+    font-size: 1.2rem;
+}
+
+/* Estilos específicos para móvil */
+@media (max-width: 768px) {
+    .cart-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .close-cart {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        color: #034701;
+        font-size: 0.9rem;
+    }
+
+    .close-cart::before {
+        content: '←';
+        margin-right: 8px;
+        font-size: 1.2rem;
+    }
+}
+
+/* Clase para mostrar elementos solo en móvil */
+.mobile-only {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-only {
+        display: inline-block;
+    }
+    
+    /* Ocultar la X en móvil */
+    .close-cart::after {
+        display: none;
+    }
+    
+    .cart-header {
+        background-color: #f8f8f8;
+    }
+    
+    .cart-header h3 {
+        font-size: 1.1rem;
+        color: #034701;
+    }
+    
+    .close-cart:hover {
+        transform: translateX(-5px);
+    }
+}
+
+/* Ajustes adicionales para pantallas más pequeñas */
+@media (max-width: 480px) {
+    .producto-card img {
+        width: 90%; /* Aumentado para pantallas más pequeñas */
+        max-width: 90%;
+    }
+    
+    .producto-card img[style*="max-width: 20%"] {
+        max-width: 90% !important;
+        width: 90% !important;
+    }
+    
+    .carousel-inner img {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    
+    .carousel-prev {
+        left: 2%;
+    }
+    
+    .carousel-next {
+        right: 2%;
+    }
+}
+
+/* Ajuste para la sección de productos */
+.productos-section {
+    padding-top: 120px !important;
+    min-height: 100vh;
+    background-color: #fff;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    .productos-section {
+        padding-top: 100px !important;
+    }
+}
+
+/* Estilos para el botón de idioma */
+.language-switch {
+    position: absolute;
+    right: 100px; /* Ajustar según necesidad */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.language-btn {
+    background-color: #c0edc7;
+    color: #034701;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.language-btn:hover {
+    background-color: #a3e4ac;
+    transform: scale(1.1);
+}
+
+/* Ajustes responsivos para el botón de idioma */
+@media (max-width: 768px) {
+    .language-switch {
+        right: 90px;
+    }
+    
+    .language-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.7rem;
+    }
+}
