@@ -11,10 +11,22 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
 <body>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7TKLZ0SLT4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7TKLZ0SLT4');
+</script>  
   <!-- Barra de navegación -->
   <nav class="navbar">
     <div class="logo">
-      <img src="assets/nutriparalavida.png" alt="NutriParaLaVida Logo" />
+      <a href="index.html">
+        <img src="assets/nutriparalavida.png" alt="NutriParaLaVida Logo" />
+      </a>
     </div>
     <div class="menu-toggle" id="mobile-menu">
       <span></span>
@@ -25,7 +37,7 @@
       <li><a href="index.html#inicio">Inicio</a></li>
       <li><a href="index.html#sobre-mi">Sobre Mí</a></li>
       <li><a href="index.html#servicios">Servicios</a></li>
-      <li><a href="index.html#testimonios">Testimonios</a></li>
+      <li><a href="testimonios.html">Testimonios</a></li>
       <li><a href="index.html#contacto">Contacto</a></li>
       <li><a href="productos.html" class="active">Productos</a></li>
     </ul>
@@ -129,6 +141,28 @@
         <p class="precio">₡8,000</p>
         <button class="comprar-btn">Agregar</button>
     </div>
+
+    <div class="producto-card">
+      <h3>Bliss</h3>
+      <div id="blissCarousel" class="carousel-producto">
+          <div class="carousel-inner">
+              <img src="assets/bliss.jpeg" 
+                   alt="Bliss frente"
+                   width="20%"
+                   style="max-width: 20%"
+                   class="active">
+              <img src="assets/bliss2.jpeg" 
+                   alt="Bliss reverso"
+                   width="20%"
+                   style="max-width: 20%">
+          </div>
+          <button class="carousel-prev">❮</button>
+          <button class="carousel-next">❯</button>
+      </div>
+      <p>Bliss, Sascha fitness</p>
+      <p class="precio">₡34,000</p>
+      <button class="comprar-btn">Agregar</button>
+  </div>
     
     <div class="producto-card">
         <h3>T-Shirts</h3>
@@ -149,7 +183,17 @@
         </div>
         <p>T-Shirts nutriparalavida</p>
         <p class="precio">₡12,500</p>
-        <button class="comprar-btn">Agregar</button>
+        <div class="talla-selector">
+            <p class="talla-label">Selecciona tu talla:</p>
+            <div class="talla-opciones">
+                <button type="button" class="talla-btn" data-talla="S">S</button>
+                <button type="button" class="talla-btn" data-talla="M">M</button>
+                <button type="button" class="talla-btn" data-talla="L">L</button>
+                <button type="button" class="talla-btn" data-talla="XL">XL</button>
+            </div>
+            <p class="talla-error">Por favor, selecciona una talla</p>
+        </div>
+        <button class="comprar-btn" data-requiere-talla="true">Agregar</button>
     </div>
 </div>
 </section>
@@ -162,7 +206,7 @@
           <h3>Contacto</h3>
           <p>Email: info@nutriparalavida.com</p>
           <p>Teléfono: +506 86494754</p>
-          <p>Dirección: Nicoya, Guanacaste</p>
+          <p>Dirección: Nicoya, Guanacaste, 100 metros oeste de la municipalidad, Diagonal a Coopeguanacaste</p>
         </div>
         <div class="redes-sociales">
           <h3>Síguenos en nuestras redes sociales</h3>

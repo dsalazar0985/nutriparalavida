@@ -1,13 +1,29 @@
 document.addEventListener('DOMContentLoaded', function () {
     // ✅ Smooth scrolling para navegación interna
+    function initSmoothScroll() {
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+                // Solo prevenir el comportamiento por defecto si es un enlace interno
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    const target = document.querySelector(href);
+                    if (!target) return;
+
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
             behavior: 'smooth'
         });
+                }
     });
 });
+    }
+
+    document.addEventListener('DOMContentLoaded', initSmoothScroll);
 
     // ✅ Manejo del formulario de contacto
     const form = document.getElementById('formulario-reserva');
@@ -73,6 +89,32 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         showImage(0);
     }
 
+    // ✅ Carrusel de productos
+    const carousels = document.querySelectorAll('.carousel-producto');
+    carousels.forEach(carousel => {
+        const images = carousel.querySelectorAll('.carousel-inner img');
+        const prevBtn = carousel.querySelector('.carousel-prev');
+        const nextBtn = carousel.querySelector('.carousel-next');
+        let currentIndex = 0;
+
+        function showImage(index) {
+            images.forEach(img => img.classList.remove('active'));
+            images[index].classList.add('active');
+        }
+
+        prevBtn?.addEventListener('click', () => {
+            currentIndex = currentIndex > 0 ? currentIndex - 1 : images.length - 1;
+            showImage(currentIndex);
+        });
+
+        nextBtn?.addEventListener('click', () => {
+            currentIndex = currentIndex < images.length - 1 ? currentIndex + 1 : 0;
+            showImage(currentIndex);
+        });
+
+        showImage(0);
+    });
+
     // ✅ Carrito de compras
     const botonesAgregar = document.querySelectorAll('.comprar-btn');
     const cartModal = document.getElementById('cartModal');
@@ -85,6 +127,41 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
     let total = 0;
     let cartCountNumber = 0;
+
+    // Inicializar los botones de talla
+    const tallaBtns = document.querySelectorAll('.talla-btn');
+    const botonesCompraConTalla = document.querySelectorAll('.comprar-btn[data-requiere-talla="true"]');
+
+    // Deshabilitar inicialmente los botones de compra que requieren talla
+    botonesCompraConTalla.forEach(btn => {
+        btn.classList.add('disabled');
+    });
+
+    // Agregar event listeners a los botones de talla
+    tallaBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const productoCard = this.closest('.producto-card');
+            const allTallaBtns = productoCard.querySelectorAll('.talla-btn');
+            const comprarBtn = productoCard.querySelector('.comprar-btn[data-requiere-talla="true"]');
+            const tallaError = productoCard.querySelector('.talla-error');
+
+            // Remover selección de todos los botones
+            allTallaBtns.forEach(b => b.classList.remove('selected'));
+            
+            // Seleccionar el botón actual
+            this.classList.add('selected');
+            
+            // Ocultar mensaje de error si existe
+            if (tallaError) {
+                tallaError.style.display = 'none';
+            }
+            
+            // Habilitar botón de comprar
+            if (comprarBtn) {
+                comprarBtn.classList.remove('disabled');
+            }
+        });
+    });
 
     // Función para abrir el carrito
     function openCart() {
@@ -99,14 +176,59 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         document.body.style.overflow = 'auto';
     }
 
+    // Primero, vamos a agregar una función para manejar la visibilidad del mensaje
+    function updateEmptyCartMessage() {
+        const cartItems = document.querySelector('.cart-items');
+        const existingMessage = cartItems.querySelector('.empty-cart-message');
+        const hasItems = cartItems.querySelectorAll('.cart-item').length > 0;
+
+        if (!hasItems && !existingMessage) {
+            // Si no hay items y no existe el mensaje, lo agregamos
+            cartItems.innerHTML = `
+                <div class="empty-cart-message">
+                    Tu carrito está vacío
+                </div>
+            `;
+        } else if (hasItems && existingMessage) {
+            // Si hay items y existe el mensaje, lo removemos
+            existingMessage.remove();
+        }
+    }
+
     botonesAgregar.forEach(boton => {
-        boton.addEventListener('click', function () {
-            const card = boton.closest('.producto-card');
-            const titulo = card.querySelector('h3')?.textContent || 'Producto';
+        boton.addEventListener('click', function (e) {
+            // Si el botón requiere talla, verificar que se haya seleccionado una
+            if (this.hasAttribute('data-requiere-talla')) {
+                const productoCard = this.closest('.producto-card');
+                const tallaSeleccionada = productoCard.querySelector('.talla-btn.selected');
+                const tallaError = productoCard.querySelector('.talla-error');
+
+                if (!tallaSeleccionada) {
+                    if (tallaError) {
+                        tallaError.style.display = 'block';
+                    }
+                    return; // Detener la ejecución si no hay talla seleccionada
+                }
+            }
+
+            const card = this.closest('.producto-card');
+            let titulo = card.querySelector('h3')?.textContent || 'Producto';
             const precioText = card.querySelector('.precio')?.textContent || '₡0';
             const precio = parseInt(precioText.replace(/[₡,]/g, '')) || 0;
             const img = card.querySelector('img');
             const imgSrc = img ? img.src : '';
+
+            // Agregar la talla al título si está seleccionada
+            const tallaSeleccionada = card.querySelector('.talla-btn.selected');
+            if (tallaSeleccionada) {
+                titulo += ` - Talla ${tallaSeleccionada.textContent}`;
+            }
+
+            // Remover el mensaje de carrito vacío si existe
+            const emptyMessage = cartItemsContainer.querySelector('.empty-cart-message');
+            if (emptyMessage) {
+                emptyMessage.remove();
+            }
 
             const itemHTML = `
                 <div class="cart-item">
@@ -126,13 +248,25 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             totalAmountElement.textContent = `₡${total.toLocaleString()}`;
             cartCount.textContent = cartCountNumber;
 
+            // Actualizar el mensaje del carrito vacío
+            updateEmptyCartMessage();
+
             // Abrir el carrito automáticamente
             openCart();
+
+            // Después de agregar al carrito, resetear la selección de talla
+            if (tallaSeleccionada) {
+                tallaSeleccionada.classList.remove('selected');
+                this.classList.add('disabled');
+            }
         });
     });
 
     // Event listeners para abrir/cerrar el carrito
-    cartIcon?.addEventListener('click', openCart);
+    cartIcon?.addEventListener('click', () => {
+        openCart();
+        updateEmptyCartMessage();
+    });
     closeCart?.addEventListener('click', closeCartModal);
 
     // Cerrar el carrito cuando se hace clic fuera de él
@@ -158,8 +292,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         const precioText = cartItem.querySelector('.cart-item-details p:last-child').textContent;
         const precio = parseInt(precioText.replace(/[₡,]/g, '')) || 0;
         
-        total -= precio;
-        cartCountNumber--;
+        total = Math.max(0, total - precio); // Asegurar que el total nunca sea negativo
+        cartCountNumber = Math.max(0, cartCountNumber - 1); // Asegurar que nunca sea negativo
         
         totalAmountElement.textContent = `₡${total.toLocaleString()}`;
         cartCount.textContent = cartCountNumber;
@@ -171,15 +305,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         
         setTimeout(() => {
             cartItem.remove();
-            
-            // Si el carrito está vacío, mostrar un mensaje
-            if (cartCountNumber === 0) {
-                cartItemsContainer.innerHTML = `
-                    <div class="empty-cart-message">
-                        Tu carrito está vacío
-                    </div>
-                `;
-            }
+            // Actualizar el mensaje del carrito vacío
+            updateEmptyCartMessage();
         }, 300);
 
         // Mantener el carrito abierto sin bloquear el scroll
@@ -268,11 +395,14 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         navLinks.classList.toggle('active');
     });
 
-    // Cerrar el menú al hacer click en un enlace
+    // Modificar el cierre del menú al hacer click en enlaces
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
+            // Solo cerrar el menú, no prevenir la navegación
+            if (mobileMenu && navLinks) {
             mobileMenu.classList.remove('active');
             navLinks.classList.remove('active');
+            }
         });
     });
 
@@ -283,4 +413,126 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             navLinks.classList.remove('active');
         }
     });
+
+    // Configuración del carrusel de testimonios
+    function initTestimoniosCarousel() {
+    const testimoniosCarousel = document.querySelector('.testimonios-carousel');
+        if (!testimoniosCarousel) return;
+
+    const testimonios = document.querySelectorAll('.testimonio');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    
+    let currentIndex = 0;
+        let isTransitioning = false;
+        const autoSlideInterval = 5000;
+    let autoSlideTimer;
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        function updateCarousel(index, animate = true) {
+            if (isTransitioning) return;
+            isTransitioning = animate;
+            
+        currentIndex = index;
+            const transform = `translateX(-${currentIndex * 100}%)`;
+            
+            testimoniosCarousel.style.transition = animate ? 'transform 0.5s ease-in-out' : 'none';
+            testimoniosCarousel.style.transform = transform;
+
+            if (animate) {
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 500);
+            }
+        }
+
+        function handleNavigation(direction) {
+            if (isTransitioning) return;
+            
+            const newIndex = direction === 'next' 
+                ? (currentIndex + 1) % testimonios.length
+                : (currentIndex - 1 + testimonios.length) % testimonios.length;
+            
+            updateCarousel(newIndex);
+        resetAutoSlide();
+    }
+
+    function resetAutoSlide() {
+        clearInterval(autoSlideTimer);
+            autoSlideTimer = setInterval(() => handleNavigation('next'), autoSlideInterval);
+        }
+
+        // Event Listeners
+        prevBtn?.addEventListener('click', () => handleNavigation('prev'));
+        nextBtn?.addEventListener('click', () => handleNavigation('next'));
+
+        // Touch events
+        testimoniosCarousel.addEventListener('touchstart', e => {
+            touchStartX = e.touches[0].clientX;
+            testimoniosCarousel.style.transition = 'none';
+        }, { passive: true });
+
+        testimoniosCarousel.addEventListener('touchmove', e => {
+            if (isTransitioning) return;
+            
+            const touch = e.touches[0];
+            const diff = touchStartX - touch.clientX;
+            const move = -(currentIndex * 100 + (diff / testimoniosCarousel.offsetWidth) * 100);
+            
+            testimoniosCarousel.style.transform = `translateX(${move}%)`;
+        }, { passive: true });
+
+    testimoniosCarousel.addEventListener('touchend', e => {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            const threshold = testimoniosCarousel.offsetWidth * 0.2;
+
+            if (Math.abs(diff) > threshold) {
+                handleNavigation(diff > 0 ? 'next' : 'prev');
+            } else {
+                updateCarousel(currentIndex);
+            }
+        });
+
+        // Inicialización
+        updateCarousel(0, false);
+        resetAutoSlide();
+
+        // Pausar en hover
+        testimoniosCarousel.addEventListener('mouseenter', () => clearInterval(autoSlideTimer));
+        testimoniosCarousel.addEventListener('mouseleave', resetAutoSlide);
+
+        // Cleanup en página no visible
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                clearInterval(autoSlideTimer);
+            } else {
+                resetAutoSlide();
+            }
+        });
+    }
+
+    // Inicializar carrusel cuando el DOM esté listo
+    initTestimoniosCarousel();
+
+    // Agregar al inicio del archivo
+    function lazyLoadImages() {
+        const images = document.querySelectorAll('img[data-src]');
+        
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        images.forEach(img => imageObserver.observe(img));
+    }
+
+    // Llamar a la función cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', lazyLoadImages);
 });
